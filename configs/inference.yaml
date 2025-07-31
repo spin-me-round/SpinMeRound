@@ -1,0 +1,92 @@
+model:
+  base_learning_rate: 1.0e-5
+  target: spmr.models.spinmeround.InferenceModel
+  params:
+
+    ckpt_path: "weights/spmr.ckpt"
+
+    network_wrapper: spmr.modules.diffusionmodules.wrappers.OpenAIWrapper
+    scale_factor: 0.18215
+    disable_first_stage_autocast: True
+    en_and_decode_n_samples_a_time: 8
+    log_keys:
+      - txt
+
+    denoiser_config:
+      target: spmr.modules.diffusionmodules.denoiser.Denoiser
+      params:
+        scaling_config:
+          target: spmr.modules.diffusionmodules.denoiser_scaling.VScalingWithEDMcNoise
+
+    network_config:
+      target: spmr.modules.diffusionmodules.openaimodel.MultiViewUNetModel
+      params:
+        image_size: 32 # unused
+        in_channels: 153
+        out_channels: 8
+        model_channels: 320
+        attention_resolutions: [ 4, 2, 1 ]
+        num_res_blocks: 2
+        channel_mult: [ 1, 2, 4, 4 ]
+        num_heads: 8 
+        use_spatial_transformer: True
+        use_linear_in_transformer: False
+        transformer_depth: 1
+        context_dim: 768
+        use_checkpoint: False
+        legacy: False
+
+    conditioner_config:
+      target: spmr.modules.GeneralConditionerCamera
+      params:
+        emb_models:
+          - is_trainable: False
+            input_key: txt
+            ucg_rate: 0.0
+            target: spmr.modules.encoders.modules.FrozenCLIPEmbedderArc2Face
+            params:
+              ckpt_path: 'weights/models'
+              always_return_pooled: False
+
+          - input_key: cond_images
+            is_trainable: False
+            target: spmr.modules.encoders.modules.CameraPoseEmbedder
+
+    first_stage_config:
+      target: spmr.models.autoencoder.AutoencoderKL
+      params:
+        embed_dim: 4
+        monitor: val/rec_loss
+        ddconfig:
+          attn_type: "vanilla-xformers"
+          double_z: true
+          z_channels: 4
+          resolution: 256
+          in_channels: 3
+          out_ch: 3
+          ch: 128
+          ch_mult:
+          - 1
+          - 2
+          - 4
+          - 4
+          num_res_blocks: 2
+          attn_resolutions: []
+          dropout: 0.0
+        lossconfig:
+          target: torch.nn.Identity
+
+    sampler_config:
+      target: spmr.modules.diffusionmodules.sampling.EulerEDMSamplerSpMR
+      params:
+        num_steps: 50
+
+        discretization_config:
+          target: spmr.modules.diffusionmodules.discretizer.EDMDiscretization
+          params:
+            sigma_max: 700.0
+
+        guider_config:
+          target: spmr.modules.diffusionmodules.guiders.VanillaCFGSpMR
+          params:
+            scale: 3.5
