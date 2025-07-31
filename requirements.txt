@@ -1,0 +1,13 @@
+torch==2.0.1
+torchvision==0.15.2
+gradio==4.8.0
+numpy==1.26.4
+opencv-python==4.9.0.80
+pytorch-lightning==2.0.1
+fastapi==0.111.0
+omegaconf
+xformers==0.0.27.post1
+kornia==0.6.9
+transformers==4.40.2
+open_clip_torch
+safetensors
