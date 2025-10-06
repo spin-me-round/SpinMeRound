@@ -1,5 +1,5 @@
 <div align="center">
-<h1>SpinMeRound: Consistent Multi-View Identity Generation Using Diffusion Models</h1>
+<h1>[ICCV 2025] SpinMeRound: Consistent Multi-View Identity Generation Using Diffusion Models</h1>
 
 <a href="https://arxiv.org/pdf/2504.10716"><img src="https://img.shields.io/badge/Paper-SpMR" alt="Paper PDF"></a>
 <a href="https://arxiv.org/abs/2504.10716"><img src="https://img.shields.io/badge/arXiv-2503.11651-b31b1b" alt="arXiv"></a>
@@ -21,8 +21,6 @@
     }
 ```
 
-## Updates
-
 ## TLDR
 We introduce SpinMeRound: <br>
 &nbsp;&nbsp;&nbsp; 🔥 An indentity consistent multi-view diffusion model <br>
@@ -43,6 +41,8 @@ cd sgm/panohead_cropping/FaceBoxes
 sh ./build_cpu_nms.sh
 cd ../../..
 ```
+
+3. Download weights from [Google Drive](https://drive.google.com/drive/folders/11JHSuMHzEZ56_bIsrEQc9NGfpHloCkXD?usp=sharing) and place them into the ``` weights ``` folder
 
 
 ## Acknowledgements

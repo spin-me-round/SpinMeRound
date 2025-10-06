@@ -131,7 +131,7 @@ def first_stage_sampling(model, value_dict, input_noise, num_frames, num_steps, 
                                       empty_image=empty_image, verbose=True)
             endtime = time.time()
             print(
-                f'Sampling processing time: {endtime - start_time:0.4f} s')
+                f'Processing time for retrieving shape normals: {endtime - start_time:0.4f} s')
 
     rendering_dict = {
         'condition_images': condition_images,
@@ -206,13 +206,8 @@ def sample_normals(model, input_image, id_emb, max_deg_pos=15, max_deg_dir=8):
     samples_latentcode = normals_generation_sampler(denoiser, randn.clone(), cond=c, uc=uc,
                                                     diffusion_model=model, verbose=False,
                                                     corrector_kwargs=corrector_kwargs,
-                                                    # mask=visibility_mask, x0=z.repeat(1,2,1,1)
                                                     )
-    # samples_latentcode = normals_generation_sampler(denoiser, randn, cond=c, uc=uc, verbose=True,
-    #                                                 # diffusion_model=model,
-    #                                                 # corrector_kwargs=corrector_kwargs,
-    #                                                 mask=visibility_mask, x0=samples_latentcode,
-    #                                                 )
+
     t2 = time.time()
     samples_x = model.decode_first_stage(samples_latentcode[:,:4])
     samples = torch.clamp(samples_x, min=-1.0, max=1.0)
@@ -220,7 +215,6 @@ def sample_normals(model, input_image, id_emb, max_deg_pos=15, max_deg_dir=8):
     samples_normals = torch.clamp(samples_x, min=-1.0, max=1.0)
     t3 = time.time()
     print(f'Sampling processing time: {t2-t1:.2f} seconds, Decoding time {t3-t2:.2f} seconds, Total time {t3-t1:.2f} seconds')
-    overlaid = (samples_normals[0] + 1) / 2 * 0.6 + (samples[0] + 1) / 2 * 0.4
     return samples, samples_normals
 
 
