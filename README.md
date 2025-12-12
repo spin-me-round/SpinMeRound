@@ -43,6 +43,10 @@ cd ../../..
 ```
 
 3. Download weights from [Google Drive](https://drive.google.com/drive/folders/11JHSuMHzEZ56_bIsrEQc9NGfpHloCkXD?usp=sharing) and place them into the ``` weights ``` folder
+4. Run gradio_app
+```bash
+python gradio_app.py
+```
 
 
 ## Acknowledgements
