@@ -23,8 +23,8 @@
 
 ## TLDR
 We introduce SpinMeRound: <br>
-&nbsp;&nbsp;&nbsp; 🔥 An indentity consistent multi-view diffusion model <br>
-&nbsp;&nbsp;&nbsp; 🔥 It can generate consisten 360 head avatars, given an input facial image. <br>
+&nbsp;&nbsp;&nbsp; 🔥 An identity consistent multi-view diffusion model <br>
+&nbsp;&nbsp;&nbsp; 🔥 It can generate consistent 360 head avatars, given an input facial image. <br>
 &nbsp;&nbsp;&nbsp; 🔥 It concurrently generates the corresponding shape normals for all generated views <br>
 
 ## Quick Start
@@ -35,15 +35,17 @@ cd SpinMeRound
 pip install -r requirements.txt
 ```
 
-2. Build the panohead cropping dependencies
+2. Download the BFM checkpoint as described in [`spmr/panohead_cropping/configs/readme.md`](spmr/panohead_cropping/configs/readme.md) and place it in `spmr/panohead_cropping/configs/`.
+
+3. Build the NMS library for the panohead cropping module:
 ```bash
-cd sgm/panohead_cropping/FaceBoxes
+cd spmr/panohead_cropping/FaceBoxes
 sh ./build_cpu_nms.sh
 cd ../../..
 ```
 
-3. Download weights from [Google Drive](https://drive.google.com/drive/folders/11JHSuMHzEZ56_bIsrEQc9NGfpHloCkXD?usp=sharing) and place them into the ``` weights ``` folder
-4. Run gradio_app
+4. Download weights from [Google Drive](https://drive.google.com/drive/folders/11JHSuMHzEZ56_bIsrEQc9NGfpHloCkXD?usp=sharing) and place them into the ``` weights ``` folder
+5. Run gradio_app
 ```bash
 python gradio_app.py
 ```
