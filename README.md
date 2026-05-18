@@ -2,7 +2,7 @@
 <h1>[ICCV 2025] SpinMeRound: Consistent Multi-View Identity Generation Using Diffusion Models</h1>
 
 <a href="https://arxiv.org/pdf/2504.10716"><img src="https://img.shields.io/badge/Paper-SpMR" alt="Paper PDF"></a>
-<a href="https://arxiv.org/abs/2504.10716"><img src="https://img.shields.io/badge/arXiv-2503.11651-b31b1b" alt="arXiv"></a>
+<a href="https://arxiv.org/abs/2504.10716"><img src="https://img.shields.io/badge/arXiv-2504.10716-b31b1b" alt="arXiv"></a>
 <a href="https://spin-me-round.github.io/"><img src="https://img.shields.io/badge/Project_Page-green" alt="Project Page"></a>
 
 
@@ -43,6 +43,10 @@ cd ../../..
 ```
 
 3. Download weights from [Google Drive](https://drive.google.com/drive/folders/11JHSuMHzEZ56_bIsrEQc9NGfpHloCkXD?usp=sharing) and place them into the ``` weights ``` folder
+4. Run gradio_app
+```bash
+python gradio_app.py
+```
 
 
 ## Acknowledgements
